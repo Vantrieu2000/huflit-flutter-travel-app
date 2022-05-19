@@ -50,14 +50,14 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             Text(
-              "Hi, Sangvaleap",
+              "Hi, Nguyen Van A",
               style: TextStyle(
                   color: textColor, fontSize: 14, fontWeight: FontWeight.w500),
             ),
             SizedBox(
               height: 3,
             ),
-            Text("Let's Explore",
+            Text("Khám phá ngay nào !",
                 style: TextStyle(
                   color: textColor,
                   fontWeight: FontWeight.w600,

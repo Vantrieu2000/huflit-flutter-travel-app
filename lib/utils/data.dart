@@ -12,7 +12,7 @@ List categories = [
 List exploreCategories = [
   {"name": "Quốc gia", "icon": Icons.terrain_rounded},
   {"name": "Bang", "icon": Icons.terrain_rounded},
-  {"name": "Thành phố", "icon": Icons.beach_access_rounded},
+  {"name": "Tỉnh biển", "icon": Icons.beach_access_rounded},
   {"name": "Địa điểm", "icon": Icons.park_rounded},
 ];
 

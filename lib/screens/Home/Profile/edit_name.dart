@@ -67,7 +67,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                               }
                               return null;
                             },
-                            decoration: InputDecoration(labelText: 'Tên'),
+                            decoration: InputDecoration(labelText: 'Họ'),
                             controller: firstNameController,
                           ))),
                   Padding(
