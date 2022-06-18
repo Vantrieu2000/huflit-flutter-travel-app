@@ -14,7 +14,7 @@ class UserData {
     email: 'test.test@gmail.com',
     phone: '+84-969235321',
     aboutMeDescription:
-        'Tôi tên Nguyễn Văn A, Tôi 99 tuổi, tôi vẫn khỏe mạnh, sở thích của tôi là giết người và uống máu cuủa họ.',
+        'Tôi tên Nguyễn Văn A, Tôi 25 tuổi, tôi là lập trình viên, sở thích của tôi là ăn và ngủ. Không chạy deadline',
   );
 
   static Future init() async =>
