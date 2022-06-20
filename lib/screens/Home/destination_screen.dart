@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travelink_app/screens/Home/destination_detail.dart';
 import 'package:travelink_app/utils/activity_model.dart';
 import 'package:travelink_app/utils/destination_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -240,6 +241,13 @@ class _DestinationScreenState extends State<DestinationScreen> {
                     ),
                   ],
                 );
+                onTap:
+                () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => Destination_Detail_Screen())));
+                };
               },
             ),
           ),
