@@ -24,10 +24,104 @@ class LoginForm extends StatelessWidget {
                       padding: EdgeInsets.only(left: 20, right: 20, top: 70),
                       child: Text(
                           "Cùng trải nghiệm những điều tuyệt vời bằng cách đăng nhập",
-                          style: TextStyle(fontSize: 16, color: Colors.white))),
+                          style: TextStyle(fontSize: 18, color: Colors.white))),
+                  Form(
+                    autovalidateMode: AutovalidateMode.disabled,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              10, 10, 10, 10),
+                          child: TextFormField(
+                            autofocus: true,
+                            obscureText: false,
+                            decoration: const InputDecoration(
+                              labelText: 'Tên đăng nhập',
+                              hintText: 'Tên người dùng',
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                  bottomRight: Radius.circular(4.0),
+                                  bottomLeft: Radius.circular(4.0),
+                                ),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                  bottomRight: Radius.circular(4.0),
+                                  bottomLeft: Radius.circular(4.0),
+                                ),
+                              ),
+                              filled: true,
+                              fillColor: Color(0xFFF5F5F5),
+                              prefixIcon: Icon(
+                                Icons.person,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                          child: TextFormField(
+                            autofocus: true,
+                            obscureText: false,
+                            decoration: const InputDecoration(
+                              labelText: 'Mật khẩu',
+                              hintText: '********',
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                  bottomRight: Radius.circular(4.0),
+                                  bottomLeft: Radius.circular(4.0),
+                                ),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                  bottomRight: Radius.circular(4.0),
+                                  bottomLeft: Radius.circular(4.0),
+                                ),
+                              ),
+                              prefixIcon: Icon(
+                                Icons.lock,
+                              ),
+                              filled: true,
+                              fillColor: Color(0xFFF5F5F5),
+                              suffixIcon: Icon(
+                                Icons.remove_red_eye,
+                                color: Color(0xFF757575),
+                                size: 22,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 50, right: 50, top: 10),
+                        const EdgeInsets.only(left: 50, right: 50, top: 20),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           fixedSize: const Size(150, 50),
