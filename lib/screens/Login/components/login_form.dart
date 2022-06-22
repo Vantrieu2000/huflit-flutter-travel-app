@@ -2,10 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:travelink_app/screens/Home/root.dart';
 
-import 'components/login_form.dart';
-
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginForm extends StatelessWidget {
+  const LoginForm({Key? key}) : super(key: key);
   static String routeName = "/sign_in";
   @override
   Widget build(BuildContext context) {
@@ -29,19 +27,6 @@ class LoginScreen extends StatelessWidget {
                           style: TextStyle(fontSize: 16, color: Colors.white))),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 50, right: 50, top: 100),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(150, 50),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18)),
-                        ),
-                        onPressed: () {},
-                        child: const Text("Đăng ký",
-                            style: TextStyle(fontSize: 18))),
-                  ),
-                  Padding(
-                    padding:
                         const EdgeInsets.only(left: 50, right: 50, top: 10),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -50,10 +35,7 @@ class LoginScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(18)),
                         ),
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => const LoginForm())));
+                          Navigator.pushNamed(context, RootApp.routeName);
                         },
                         child: const Text("Đăng nhập",
                             style: TextStyle(fontSize: 18))),
