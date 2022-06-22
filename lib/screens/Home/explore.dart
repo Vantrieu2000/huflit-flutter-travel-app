@@ -16,6 +16,14 @@ class ExplorePage extends StatefulWidget {
 }
 
 class _ExplorePageState extends State<ExplorePage> {
+  final searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    searchController.addListener(() => setState(() => {}));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,13 +68,13 @@ class _ExplorePageState extends State<ExplorePage> {
               ),
             ],
           )),
-          IconBox(
-            child: SvgPicture.asset(
-              "assets/icons/filter.svg",
-              width: 20,
-              height: 20,
-            ),
-          )
+          // IconBox(
+          //   child: SvgPicture.asset(
+          //     "assets/icons/filter.svg",
+          //     width: 20,
+          //     height: 20,
+          //   ),
+          // )
         ],
       ),
     );
@@ -82,55 +90,55 @@ class _ExplorePageState extends State<ExplorePage> {
           margin: EdgeInsets.only(left: 15, right: 15),
           child: RoundTextBox(
             hintText: "Tìm kiếm...",
+            controller: searchController,
             prefixIcon: Icon(Icons.search, color: darker),
           )),
       SizedBox(
         height: 20,
       ),
-      getCategories(),
-      SizedBox(
-        height: 15,
-      ),
       Container(
         margin: EdgeInsets.only(left: 10, right: 10),
         child: getPlaces(),
+      ),
+      SizedBox(
+        height: 70,
       ),
     ]));
   }
 
   int selectedIndex = 0;
-  getCategories() {
-    List<Widget> lists = List.generate(
-        exploreCategories.length,
-        (index) => ExploreCategoryItem(
-              data: exploreCategories[index],
-              selected: index == selectedIndex,
-              onTap: () {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-            ));
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.only(bottom: 5, left: 15),
-      child: Row(children: lists),
-    );
-  }
+  late Future<List<Tour>> futureTour;
 
   getPlaces() {
-    return new StaggeredGridView.countBuilder(
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      crossAxisCount: 4,
-      itemCount: countries.length,
-      itemBuilder: (BuildContext context, int index) =>
-          ExploreItem(data: countries[index], onTap: () {}),
-      staggeredTileBuilder: (int index) =>
-          new StaggeredTile.count(2, index.isEven ? 3 : 2),
-      mainAxisSpacing: 4,
-      crossAxisSpacing: 4,
-    );
+    futureTour = fetchTours();
+    return FutureBuilder<List<Tour>>(
+        future: futureTour,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<Tour> tourFilter = snapshot.data!
+                .where((element) => element.name
+                    .toLowerCase()
+                    .contains(searchController.text.toLowerCase()))
+                .toList();
+            return new StaggeredGridView.countBuilder(
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              crossAxisCount: 4,
+              itemCount: tourFilter.length,
+              itemBuilder: (BuildContext context, int index) =>
+                  ExploreItem(data: tourFilter[index], onTap: () {}),
+              staggeredTileBuilder: (int index) =>
+                  new StaggeredTile.count(2, index.isEven ? 3 : 2),
+              mainAxisSpacing: 4,
+              crossAxisSpacing: 4,
+            );
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
+
+          // By default, show a loading spinner.
+          return const CircularProgressIndicator();
+        });
   }
 }

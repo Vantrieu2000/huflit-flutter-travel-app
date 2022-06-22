@@ -284,6 +284,9 @@ class _DesTinationDetailScreenState extends State<DesTinationDetailScreen>
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 50,
+                )
               ],
             ),
           ),

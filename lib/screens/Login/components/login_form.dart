@@ -75,7 +75,9 @@ class LoginForm extends StatelessWidget {
                           padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                           child: TextFormField(
                             autofocus: true,
-                            obscureText: false,
+                            obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
                             decoration: const InputDecoration(
                               labelText: 'Mật khẩu',
                               hintText: '********',
@@ -108,11 +110,11 @@ class LoginForm extends StatelessWidget {
                               ),
                               filled: true,
                               fillColor: Color(0xFFF5F5F5),
-                              suffixIcon: Icon(
-                                Icons.remove_red_eye,
-                                color: Color(0xFF757575),
-                                size: 22,
-                              ),
+                              // suffixIcon: Icon(
+                              //   Icons.remove_red_eye,
+                              //   color: Color(0xFF757575),
+                              //   size: 22,
+                              // ),
                             ),
                           ),
                         ),

@@ -76,12 +76,12 @@ class _HomePageState extends State<HomePage> {
       child: Padding(
         padding: const EdgeInsets.only(top: 0, bottom: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          SizedBox(
-            height: 25,
-          ),
-          Container(
-            child: getCategories(),
-          ),
+          // SizedBox(
+          //   height: 25,
+          // ),
+          // Container(
+          //   child: getCategories(),
+          // ),
           SizedBox(
             height: 25,
           ),
@@ -106,44 +106,58 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  getCategories() {
-    List<Widget> lists = List.generate(
-        categories.length,
-        (index) => CategoryItem(
-              data: categories[index],
-              color: listColors[index % 10],
-              onTap: () {},
-            ));
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.only(bottom: 5, left: 15),
-      child: Row(children: lists),
-    );
-  }
+  // getCategories() {
+  //   List<Widget> lists = List.generate(
+  //       categories.length,
+  //       (index) => CategoryItem(
+  //             data: categories[index],
+  //             color: listColors[index % 10],
+  //             onTap: () {},
+  //           ));
+  //   return SingleChildScrollView(
+  //     scrollDirection: Axis.horizontal,
+  //     padding: EdgeInsets.only(bottom: 5, left: 15),
+  //     child: Row(children: lists),
+  //   );
+  // }
+
+  late Future<List<Popular>> futurePopular;
 
   getPopulars() {
-    return CarouselSlider(
-        options: CarouselOptions(
-          height: 390,
-          enlargeCenterPage: true,
-          disableCenter: true,
-          viewportFraction: .75,
-        ),
-        items: List.generate(
-          populars.length,
-          (index) => GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => DestinationScreen(
-                  destination: destinations[index],
+    futurePopular = fetchPopulars();
+    return FutureBuilder<List<Popular>>(
+        future: futurePopular,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return CarouselSlider(
+                options: CarouselOptions(
+                  height: 390,
+                  enlargeCenterPage: true,
+                  disableCenter: true,
+                  viewportFraction: .75,
                 ),
-              ),
-            ),
-            child: PopularItem(
-              data: populars[index],
-            ),
-          ),
-        ));
+                items: List.generate(
+                  snapshot.data!.length,
+                  (index) => GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => DestinationScreen(
+                          id: snapshot.data![index].id,
+                        ),
+                      ),
+                    ),
+                    child: PopularItem(
+                      data: snapshot.data![index],
+                    ),
+                  ),
+                ));
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
+
+          // By default, show a loading spinner.
+          return const CircularProgressIndicator();
+        });
   }
 }

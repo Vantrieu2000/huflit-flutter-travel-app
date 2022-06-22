@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:convert/convert.dart';
+import 'dart:convert';
+import 'package:quiver/strings.dart';
 
 List categories = [
   {"name": "Núi", "icon": Icons.terrain_rounded},
@@ -15,6 +19,161 @@ List exploreCategories = [
   {"name": "Tỉnh biển", "icon": Icons.beach_access_rounded},
   {"name": "Địa điểm", "icon": Icons.park_rounded},
 ];
+
+class Popular {
+  final String id;
+  final String name;
+  final String image;
+
+  const Popular({
+    required this.id,
+    required this.name,
+    required this.image,
+  });
+
+  factory Popular.fromJson(Map<String, dynamic> json) {
+    return Popular(
+      id: json['id'],
+      name: json['name'],
+      image: json['images'][0]['image'],
+    );
+  }
+}
+
+class Transportation {
+  final String id;
+  final String type;
+  final String startFrom;
+  final int subCharge;
+
+  const Transportation({
+    required this.id,
+    required this.type,
+    required this.startFrom,
+    required this.subCharge,
+  });
+
+  factory Transportation.fromJson(Map<String, dynamic> json) {
+    return Transportation(
+      id: json['id'],
+      type: json['type'],
+      startFrom: json['startFrom'],
+      subCharge: json['subCharge'],
+    );
+  }
+}
+
+class SubTour {
+  final String id;
+  final String checkIn;
+  final String checkOut;
+  final int slot;
+  final List<Transportation> transportations;
+
+  const SubTour({
+    required this.id,
+    required this.checkIn,
+    required this.checkOut,
+    required this.slot,
+    required this.transportations,
+  });
+
+  factory SubTour.fromJson(Map<String, dynamic> json) {
+    return SubTour(
+        id: json['id'],
+        checkIn: json['checkIn'],
+        checkOut: json['checkOut'],
+        slot: json['slot'],
+        transportations: (json['transportations'] as List)
+            .map((e) => Transportation.fromJson(e))
+            .toList());
+  }
+}
+
+class Tour {
+  final String id;
+  final String name;
+  final String image;
+  final String description;
+  final String address;
+  final String region;
+  final int price;
+  final int duration;
+  final String schedule;
+  final List<SubTour>? subTours;
+
+  const Tour(
+      {required this.id,
+      required this.name,
+      required this.image,
+      required this.description,
+      required this.address,
+      required this.region,
+      required this.schedule,
+      required this.price,
+      required this.duration,
+      this.subTours});
+
+  factory Tour.fromJson(Map<String, dynamic> json) {
+    return Tour(
+        id: json['id'],
+        name: json['name'],
+        region: json['region'],
+        address: json['address'],
+        schedule: json['schedule'],
+        price: json['price'],
+        duration: json['duration'],
+        description: json['description'],
+        image: json['images'][0]['image']);
+  }
+  factory Tour.fromJsonWSubTour(Map<String, dynamic> json) {
+    return Tour(
+        id: json['id'],
+        name: json['name'],
+        region: json['region'],
+        address: json['address'],
+        schedule: json['schedule'],
+        price: json['price'],
+        duration: json['duration'],
+        description: json['description'],
+        image: json['images'][0]['image'],
+        subTours: (json['subTours'] as List)
+            .map((e) => SubTour.fromJson(e))
+            .toList());
+  }
+}
+
+Future<List<Popular>> fetchPopulars() async {
+  var res = await http
+      .get(Uri.parse('https://travelink-app.herokuapp.com/tour/statistic'));
+  if (res.statusCode == 200) {
+    var content = res.body;
+    var arr = json.decode(content)['topTours'] as List;
+    return arr.map((e) => Popular.fromJson(e)).toList();
+  }
+  return <Popular>[];
+}
+
+Future<List<Tour>> fetchTours() async {
+  var res = await http
+      .get(Uri.parse('https://travelink-app.herokuapp.com/tour?size=9999'));
+  if (res.statusCode == 200) {
+    var content = res.body;
+    var arr = json.decode(content)['content'] as List;
+    return arr.map((e) => Tour.fromJson(e)).toList();
+  }
+  return <Tour>[];
+}
+
+Future<Tour> fetchTourDetails(String id) async {
+  var res = await http
+      .get(Uri.parse('https://travelink-app.herokuapp.com/tour/${id}'));
+  if (res.statusCode == 200) {
+    var content = res.body;
+    return Tour.fromJsonWSubTour(json.decode(content));
+  }
+  return null as Tour;
+}
 
 List populars = [
   {
