@@ -77,9 +77,10 @@ class _DesTinationDetailScreenState extends State<DesTinationDetailScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
+          label: const Text('Liên hệ ngay'),
           onPressed: () => launch("tel://0969231151"),
-          child: const Icon(Icons.phone)),
+          icon: const Icon(Icons.phone)),
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
