@@ -1,6 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:travelink_app/screens/Home/root.dart';
+import 'package:travelink_app/screens/SignIn/sign_in.dart';
 
 import 'components/login_form.dart';
 
@@ -36,7 +37,12 @@ class LoginScreen extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18)),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => const SinginForm())));
+                        },
                         child: const Text("Đăng ký",
                             style: TextStyle(fontSize: 18))),
                   ),
