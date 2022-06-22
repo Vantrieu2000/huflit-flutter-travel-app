@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-            child: Text("Phổ biến nhất 15",
+            child: Text("Phổ biến nhất",
                 style: TextStyle(
                   color: textColor,
                   fontWeight: FontWeight.w600,

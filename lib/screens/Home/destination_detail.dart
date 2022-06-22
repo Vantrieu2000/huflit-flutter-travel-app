@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:travelink_app/screens/Home/History/history_order.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class DesTinationDetailScreen extends StatefulWidget {
@@ -76,6 +77,9 @@ class _DesTinationDetailScreenState extends State<DesTinationDetailScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => launch("tel://0969231151"),
+          child: const Icon(Icons.phone)),
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
