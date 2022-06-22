@@ -75,7 +75,7 @@ class LoginForm extends StatelessWidget {
                           padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                           child: TextFormField(
                             autofocus: true,
-                            obscureText: false,
+                            obscureText: true,
                             decoration: const InputDecoration(
                               labelText: 'Mật khẩu',
                               hintText: '********',
@@ -114,6 +114,7 @@ class LoginForm extends StatelessWidget {
                                 size: 22,
                               ),
                             ),
+                            keyboardType: TextInputType.visiblePassword,
                           ),
                         ),
                       ],

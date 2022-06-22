@@ -75,7 +75,7 @@ class SingUpForm extends StatelessWidget {
                               EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
                           child: TextFormField(
                             autofocus: true,
-                            obscureText: false,
+                            obscureText: true,
                             decoration: const InputDecoration(
                               labelText: 'Mật khẩu',
                               hintText: '********',
