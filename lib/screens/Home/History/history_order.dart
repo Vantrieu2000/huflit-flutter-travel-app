@@ -10,16 +10,14 @@ class ListViewHistory extends StatelessWidget {
         backgroundColor: Color(0xFF2596BE),
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_rounded,
             color: Colors.white,
             size: 30,
           ),
-          onPressed: () {
-            print('IconButton pressed ...');
-          },
+          onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
+        title: const Text(
           'Order History',
           style: TextStyle(
             fontFamily: 'Poppins',

@@ -6,9 +6,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:travelink_app/screens/Home/History/history_order.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
-import 'package:travelink_app/utils/destination_model.dart';
-
-import '../../utils/destination_model.dart';
 
 class DesTinationDetailScreen extends StatefulWidget {
   const DesTinationDetailScreen({Key? key}) : super(key: key);
@@ -26,18 +23,14 @@ class _DesTinationDetailScreenState extends State<DesTinationDetailScreen>
   late YoutubePlayerController _controller;
 
   late double ratingBarValue = 4;
-  static const _initialCameraPosition = CameraPosition(
-    target: LatLng(37.773972, -122.431297),
-    zoom: 11.5,
-  );
   Completer<GoogleMapController> _controllerMap = Completer();
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
+  static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
 
-  static final CameraPosition _kLake = CameraPosition(
+  static const CameraPosition _kLake = CameraPosition(
       bearing: 192.8334901395799,
       target: LatLng(37.43296265331129, -122.08832357078792),
       tilt: 59.440717697143555,
@@ -96,7 +89,7 @@ class _DesTinationDetailScreenState extends State<DesTinationDetailScreen>
               children: [
                 Container(
                   height: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20),
@@ -114,7 +107,7 @@ class _DesTinationDetailScreenState extends State<DesTinationDetailScreen>
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20),
                         topLeft: Radius.circular(0),
@@ -134,7 +127,7 @@ class _DesTinationDetailScreenState extends State<DesTinationDetailScreen>
                   child: Container(
                     width: 100,
                     height: 80,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xFFEEEEEE),
                       shape: BoxShape.rectangle,
                     ),
@@ -146,7 +139,7 @@ class _DesTinationDetailScreenState extends State<DesTinationDetailScreen>
                         Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
+                          children: const [
                             Icon(
                               Icons.attach_money_outlined,
                               color: Colors.black,
@@ -168,7 +161,7 @@ class _DesTinationDetailScreenState extends State<DesTinationDetailScreen>
                         Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
+                          children: const [
                             Icon(
                               Icons.place_outlined,
                               color: Colors.black,
@@ -191,28 +184,29 @@ class _DesTinationDetailScreenState extends State<DesTinationDetailScreen>
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.star_rate_outlined,
                               color: Colors.black,
                               size: 24,
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 7, 0, 0),
                               child: RatingBar.builder(
                                 onRatingUpdate: (newValue) =>
                                     setState(() => ratingBarValue = newValue),
-                                itemBuilder: (context, index) => Icon(
+                                itemBuilder: (context, index) => const Icon(
                                   Icons.star_rounded,
                                   color: Color(0xFFE0A112),
                                 ),
                                 direction: Axis.horizontal,
-                                initialRating: ratingBarValue ??= 3,
-                                unratedColor: Color(0xFF9E9E9E),
+                                initialRating: ratingBarValue,
+                                unratedColor: const Color(0xFF9E9E9E),
                                 itemCount: 5,
-                                itemPadding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                itemPadding:
+                                    const EdgeInsets.fromLTRB(0, 5, 0, 0),
                                 itemSize: 18,
-                                glowColor: Color(0xFFE0A112),
+                                glowColor: const Color(0xFFE0A112),
                               ),
                             ),
                           ],
