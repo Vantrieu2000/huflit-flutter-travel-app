@@ -116,6 +116,7 @@ class LoginForm extends StatelessWidget {
                               //   size: 22,
                               // ),
                             ),
+                            keyboardType: TextInputType.visiblePassword,
                           ),
                         ),
                       ],

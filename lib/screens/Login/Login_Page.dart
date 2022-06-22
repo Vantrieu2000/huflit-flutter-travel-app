@@ -59,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: ((context) => const LoginForm())));
+                                  builder: ((context) => LoginForm())));
                         },
                         child: const Text("Đăng nhập",
                             style: TextStyle(fontSize: 18))),
