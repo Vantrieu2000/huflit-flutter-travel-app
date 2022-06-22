@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:travelink_app/screens/Home/root.dart';
 
-class SinginForm extends StatelessWidget {
-  const SinginForm({Key? key}) : super(key: key);
+class SingUpForm extends StatelessWidget {
+  const SingUpForm({Key? key}) : super(key: key);
   static String routeName = "/sign_in";
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class SinginForm extends StatelessWidget {
             child: Container(
                 child: Column(children: <Widget>[
                   const Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20, top: 70),
+                      padding: EdgeInsets.only(left: 20, right: 20, top: 20),
                       child: Text("Đăng ký mới",
                           style: TextStyle(fontSize: 25, color: Colors.white))),
                   Form(
@@ -176,7 +176,7 @@ class SinginForm extends StatelessWidget {
                         onPressed: () {
                           Navigator.pushNamed(context, RootApp.routeName);
                         },
-                        child: const Text("Đăng nhập",
+                        child: const Text("Đăng ký",
                             style: TextStyle(fontSize: 18))),
                   ),
                 ]),

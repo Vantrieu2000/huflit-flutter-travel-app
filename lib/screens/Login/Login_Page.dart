@@ -1,7 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:travelink_app/screens/Home/root.dart';
-import 'package:travelink_app/screens/SignIn/sign_in.dart';
+import 'package:travelink_app/screens/SignUp/sign_up.dart';
 
 import 'components/login_form.dart';
 
@@ -41,7 +41,7 @@ class LoginScreen extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: ((context) => const SinginForm())));
+                                  builder: ((context) => const SingUpForm())));
                         },
                         child: const Text("Đăng ký",
                             style: TextStyle(fontSize: 18))),

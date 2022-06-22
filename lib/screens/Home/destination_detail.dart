@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:travelink_app/screens/Home/History/history_order.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:travelink_app/utils/destination_model.dart';
 
@@ -22,6 +24,8 @@ class _DesTinationDetailScreenState extends State<DesTinationDetailScreen>
   final googleMapsController = Completer<GoogleMapController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late YoutubePlayerController _controller;
+
+  late double ratingBarValue = 4;
   static const _initialCameraPosition = CameraPosition(
     target: LatLng(37.773972, -122.431297),
     zoom: 11.5,
@@ -125,28 +129,116 @@ class _DesTinationDetailScreenState extends State<DesTinationDetailScreen>
                     ),
                   ),
                 ),
-                Container(
-                  width: 100,
-                  height: 130,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEEEEEE),
-                    shape: BoxShape.rectangle,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 20, 0, 0),
-                        child: Text(
-                          'Place name\nPlace price\nRate : ',
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                  child: Container(
+                    width: 100,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFEEEEEE),
+                      shape: BoxShape.rectangle,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.attach_money_outlined,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
+                              child: Text(
+                                '\$210',
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 60, 0, 0),
-                      ),
-                    ],
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.place_outlined,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
+                              child: Text(
+                                'Japan',
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.star_rate_outlined,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
+                              child: RatingBar.builder(
+                                onRatingUpdate: (newValue) =>
+                                    setState(() => ratingBarValue = newValue),
+                                itemBuilder: (context, index) => Icon(
+                                  Icons.star_rounded,
+                                  color: Color(0xFFE0A112),
+                                ),
+                                direction: Axis.horizontal,
+                                initialRating: ratingBarValue ??= 3,
+                                unratedColor: Color(0xFF9E9E9E),
+                                itemCount: 5,
+                                itemPadding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                itemSize: 18,
+                                glowColor: Color(0xFFE0A112),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 50, right: 50, top: 10, bottom: 10),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(150, 50),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18)),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) =>
+                                    const ListViewHistory())));
+                      },
+                      child: const Text("Đặt ngay",
+                          style: TextStyle(fontSize: 18))),
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(20, 10, 0, 10),
