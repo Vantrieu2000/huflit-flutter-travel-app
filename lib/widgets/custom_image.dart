@@ -33,14 +33,19 @@ class CustomImage extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           color: bgColor,
-          borderRadius: BorderRadius.circular(radius),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(radius),
+            bottomRight: Radius.circular(radius),
+            topLeft: Radius.circular(0),
+            topRight: Radius.circular(0),
+          ),
           boxShadow: [
             if (isShadow)
               BoxShadow(
                 color: shadowColor.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 1,
-                offset: Offset(0, 1), // changes position of shadow
+                offset: const Offset(0, 1), // changes position of shadow
               ),
           ],
         ),
@@ -51,7 +56,12 @@ class CustomImage extends StatelessWidget {
                 errorWidget: (context, url, error) => BlankImageWidget(),
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(radius),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(radius),
+                      bottomRight: Radius.circular(radius),
+                      topLeft: Radius.circular(0),
+                      topRight: Radius.circular(0),
+                    ),
                     image: DecorationImage(image: imageProvider, fit: fit),
                   ),
                 ),

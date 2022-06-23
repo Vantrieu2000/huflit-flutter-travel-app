@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
                   primary: Color(0xFF2A96B0),
                   shadowColor: Colors.grey,
                   elevation: 20,
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(0.0))))),
           inputDecorationTheme: InputDecorationTheme(
               border:

@@ -54,10 +54,14 @@ class _DestinationScreenState extends State<DestinationScreen> {
                             ],
                           ),
                           child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30.0)),
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20),
+                              topLeft: Radius.circular(0),
+                              topRight: Radius.circular(0),
+                            ),
                             child: ShaderMask(
-                              shaderCallback: (bounds) => LinearGradient(
+                              shaderCallback: (bounds) => const LinearGradient(
                                 colors: [
                                   Colors.transparent,
                                   Color.fromARGB(100, 0, 0, 0)
@@ -141,7 +145,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                           ],
                         ),
                       ),
-                      Positioned(
+                      const Positioned(
                         right: 20.0,
                         bottom: 20.0,
                         child: Icon(
@@ -154,9 +158,10 @@ class _DestinationScreenState extends State<DestinationScreen> {
                   ),
                   Expanded(
                       child: snapshot.data!.subTours != null &&
-                              snapshot.data!.subTours!.length > 0
+                              snapshot.data!.subTours!.isNotEmpty
                           ? ListView.builder(
-                              padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
+                              padding: const EdgeInsets.only(
+                                  top: 10.0, bottom: 15.0),
                               itemCount: snapshot.data!.subTours == null
                                   ? 0
                                   : snapshot.data!.subTours!.length,
@@ -174,18 +179,20 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                   child: Stack(
                                     children: <Widget>[
                                       Container(
-                                        margin: EdgeInsets.fromLTRB(
+                                        margin: const EdgeInsets.fromLTRB(
                                             5.0, 5.0, 5.0, 5.0),
-                                        height: 240.0,
+                                        height: 220.0,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Colors.blueAccent),
                                           color: Colors.white,
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                              BorderRadius.circular(10.0),
                                         ),
                                         child: Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              20.0, 20.0, 20.0, 20.0),
+                                          padding: const EdgeInsets.fromLTRB(
+                                              20.0, 0.0, 20.0, 0.0),
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -199,15 +206,21 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: <Widget>[
-                                                  Container(
-                                                    width: 120.0,
+                                                  SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.8,
                                                     child: Text(
                                                       'Tour con thứ ${index + 1}',
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         fontSize: 18.0,
                                                         fontWeight:
                                                             FontWeight.w600,
                                                       ),
+                                                      textAlign:
+                                                          TextAlign.center,
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       maxLines: 2,
@@ -215,7 +228,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(height: 10.0),
+                                              const SizedBox(height: 10.0),
                                               Row(
                                                 children: <Widget>[
                                                   Text('Từ '),

@@ -236,7 +236,7 @@ class _DesTinationDetailScreenState extends State<DesTinationDetailScreen>
                                 builder: ((context) =>
                                     const ListViewHistory())));
                       },
-                      child: const Text("Đặt ngay",
+                      child: const Text("Thêm vào danh sách tour",
                           style: TextStyle(fontSize: 18))),
                 ),
                 Padding(
