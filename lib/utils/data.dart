@@ -3,6 +3,9 @@ import 'package:http/http.dart' as http;
 import 'package:convert/convert.dart';
 import 'dart:convert';
 import 'package:quiver/strings.dart';
+import 'package:travelink_app/utils/user/user.dart';
+
+import 'user/user_data.dart';
 
 List categories = [
   {"name": "Núi", "icon": Icons.terrain_rounded},
@@ -68,6 +71,7 @@ class SubTour {
   final String checkIn;
   final String checkOut;
   final int slot;
+  final int limit;
   final List<Transportation> transportations;
 
   const SubTour({
@@ -75,6 +79,7 @@ class SubTour {
     required this.checkIn,
     required this.checkOut,
     required this.slot,
+    required this.limit,
     required this.transportations,
   });
 
@@ -84,9 +89,8 @@ class SubTour {
         checkIn: json['checkIn'],
         checkOut: json['checkOut'],
         slot: json['slot'],
-        transportations: (json['transportations'] as List)
-            .map((e) => Transportation.fromJson(e))
-            .toList());
+        limit: json['limit'],
+        transportations: (json['transportations'] as List).map((e) => Transportation.fromJson(e)).toList());
   }
 }
 
@@ -137,15 +141,12 @@ class Tour {
         duration: json['duration'],
         description: json['description'],
         image: json['images'][0]['image'],
-        subTours: (json['subTours'] as List)
-            .map((e) => SubTour.fromJson(e))
-            .toList());
+        subTours: (json['subTours'] as List).map((e) => SubTour.fromJson(e)).toList());
   }
 }
 
 Future<List<Popular>> fetchPopulars() async {
-  var res = await http
-      .get(Uri.parse('https://travelink-app.herokuapp.com/tour/statistic'));
+  var res = await http.get(Uri.parse('https://travelink-app.herokuapp.com/tour/statistic'));
   if (res.statusCode == 200) {
     var content = res.body;
     var arr = json.decode(content)['topTours'] as List;
@@ -155,8 +156,7 @@ Future<List<Popular>> fetchPopulars() async {
 }
 
 Future<List<Tour>> fetchTours() async {
-  var res = await http
-      .get(Uri.parse('https://travelink-app.herokuapp.com/tour?size=9999'));
+  var res = await http.get(Uri.parse('https://travelink-app.herokuapp.com/tour?size=9999'));
   if (res.statusCode == 200) {
     var content = res.body;
     var arr = json.decode(content)['content'] as List;
@@ -166,13 +166,27 @@ Future<List<Tour>> fetchTours() async {
 }
 
 Future<Tour> fetchTourDetails(String id) async {
-  var res = await http
-      .get(Uri.parse('https://travelink-app.herokuapp.com/tour/${id}'));
+  var res = await http.get(Uri.parse('https://travelink-app.herokuapp.com/tour/${id}'));
   if (res.statusCode == 200) {
     var content = res.body;
     return Tour.fromJsonWSubTour(json.decode(content));
   }
   return null as Tour;
+}
+
+Future<bool> createOrderAPI(String id, int numberOfGuest, int total, int unitPrice) async {
+  User user = UserData.myUser;
+  String json =
+      '{"name": "tvl-app-${DateTime.now().millisecondsSinceEpoch}", "numberOfGuest": ${numberOfGuest}, "unitPrice": ${unitPrice}, "total": ${total}, "contactName": "${user.name}", "contactAddress": "${user.email}", "contactPhone": "${user.phone}"}';
+  var res = await http.post(Uri.parse('https://travelink-app.herokuapp.com/order/${id}'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json);
+  if (res.statusCode >= 200 && res.statusCode < 300) {
+    return true;
+  }
+  return false;
 }
 
 List populars = [
@@ -182,8 +196,7 @@ List populars = [
     "name": "Angkor",
     "location": "Siem Reap, Cambodia",
     "is_favorited": false,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },
@@ -192,8 +205,7 @@ List populars = [
     "name": "Fiji",
     "location": "Japan",
     "is_favorited": true,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },
@@ -203,8 +215,7 @@ List populars = [
     "name": "Paris",
     "location": "Paris, France",
     "is_favorited": true,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },
@@ -214,8 +225,7 @@ List populars = [
     "name": "Pyramid",
     "location": "Cairo, Egypt",
     "is_favorited": true,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },
@@ -225,8 +235,7 @@ List populars = [
     "name": "Bayon",
     "location": "Siem Reap, Cambodia",
     "is_favorited": false,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },
@@ -236,8 +245,7 @@ List populars = [
     "name": "Moscow",
     "location": "Moscow, Russia",
     "is_favorited": false,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },
@@ -247,8 +255,7 @@ List populars = [
     "name": "Singapore",
     "location": "Singapore",
     "is_favorited": false,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },
@@ -261,8 +268,7 @@ List countries = [
     "name": "Cambodia",
     "location": "Cambodia",
     "is_favorited": true,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },
@@ -272,8 +278,7 @@ List countries = [
     "name": "Japan",
     "location": "Japan",
     "is_favorited": false,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },
@@ -283,8 +288,7 @@ List countries = [
     "name": "Singapore",
     "location": "Singapore",
     "is_favorited": false,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },
@@ -294,8 +298,7 @@ List countries = [
     "name": "France",
     "location": "France",
     "is_favorited": false,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },
@@ -305,8 +308,7 @@ List countries = [
     "name": "Thailand",
     "location": "Thailand",
     "is_favorited": true,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },
@@ -316,8 +318,7 @@ List countries = [
     "name": "China",
     "location": "China",
     "is_favorited": false,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },
@@ -327,8 +328,7 @@ List countries = [
     "name": "Italy",
     "location": "Italy",
     "is_favorited": false,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },
@@ -338,8 +338,7 @@ List countries = [
     "name": "Russia",
     "location": "Russia",
     "is_favorited": false,
-    "description":
-        "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
     "rate": 4,
     "id": "pro010",
   },

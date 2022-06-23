@@ -31,7 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
             elevation: 0,
             toolbarHeight: 10,
           ),
-          Center(
+          const Center(
               child: Padding(
                   padding: EdgeInsets.only(bottom: 20),
                   child: Text(
