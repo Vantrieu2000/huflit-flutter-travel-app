@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Travelinl',
+      title: 'Travelink',
       initialRoute: "/",
       routes: routes,
       debugShowCheckedModeBanner: false,
